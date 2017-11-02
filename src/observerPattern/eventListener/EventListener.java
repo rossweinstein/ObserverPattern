@@ -30,12 +30,7 @@ public class EventListener extends Subject implements Observer {
 
     @Override
     public void update(Subject subject, Object hint) {
-        if (hint.equals(StockEvents.Update_Stock)) {
-            this.observerMap.get(hint.toString()).forEach(observer -> observer.update(subject, hint));
-        } else {
-            this.observerMap.values().stream().flatMap(Collection::stream)
-                    .collect(Collectors.toList()).forEach(observer -> observer.update(subject, hint));
-        }
+       this.notifyObservers(subject, hint);
     }
 
     @Override
