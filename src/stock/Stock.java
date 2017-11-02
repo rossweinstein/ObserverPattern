@@ -1,7 +1,8 @@
 package stock;
 
-import observerPattern.eventListener.EventListener;
-import observerPattern.eventListener.StockEvents;
+import observerPattern.eventManager.EventManager;
+import observerPattern.eventManager.StockEvent;
+import observerPattern.observer.Observer;
 import observerPattern.observer.Subject;
 
 import java.util.ArrayList;
@@ -17,12 +18,12 @@ public class Stock extends Subject {
         this.stockSymbol = stockSymbol;
         this.stockStatus = new ArrayList<>();
         this.stockStatus.add(new StockStatus(this, startingPrice));
-        this.registerObserver(EventListener.getUniqueEventListener(), StockEvents.Add_Stock);
+        this.registerObserver(EventManager.getUniqueEventManager(), StockEvent.Create_Stock);
     }
 
     public void addStatus(StockStatus stockStatus) {
         this.stockStatus.add(stockStatus);
-        this.notifyObservers(this, StockEvents.Update_Stock);
+        this.notifyObservers(this, StockEvent.Update_Stock);
     }
 
     public List<StockStatus> getStockStatus() {
@@ -43,5 +44,11 @@ public class Stock extends Subject {
 
     public String getDateTime() {
         return this.getCurrentStockStatus().getDateTime().toString();
+    }
+
+    @Override
+    public void registerObserver(Observer observer, StockEvent event) {
+        this.getObservers().add(observer);
+        this.notifyObservers(this, StockEvent.Create_Stock);
     }
 }

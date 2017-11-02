@@ -15,8 +15,8 @@ public class AnyClient {
         this.clientStocks = new ArrayList<>();
     }
 
-    public void addStock(String stockStymbol, Money startingValue) {
-        Stock stock = new Stock(stockStymbol, startingValue);
+    public void addStock(String stockSymbol, Money startingValue) {
+        Stock stock = new Stock(stockSymbol, startingValue);
         this.clientStocks.add(stock);
     }
 

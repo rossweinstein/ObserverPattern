@@ -28,11 +28,11 @@ public class StockObserverMain {
         anyClient.addStock("BND", new Money(3, 56));
         showStocks();
 
-        System.out.println("----> UPDATING STOCK ABC <----\n");
-
-        System.out.println("-OBSERVATIONS-");
-        anyClient.updateStockStatus("ABC", new Money(5, 99));
-        showStocks();
+//        System.out.println("----> UPDATING STOCK ABC <----\n");
+//
+//        System.out.println("-OBSERVATIONS-");
+//        anyClient.updateStockStatus("ABC", new Money(5, 99));
+//        showStocks();
     }
 
     private static void showStocks() {

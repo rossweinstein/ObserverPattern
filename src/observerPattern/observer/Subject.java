@@ -1,6 +1,7 @@
 package observerPattern.observer;
 
-import observerPattern.eventListener.StockEvents;
+import observerPattern.eventManager.StockEvent;
+import stock.Stock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +18,9 @@ public abstract class Subject {
         return this.observers;
     }
 
-    public void registerObserver(Observer observer, Object hint) {
-        this.getObservers().add(observer);
-        this.notifyObservers(this, StockEvents.Add_Stock);
-    }
+    public abstract void registerObserver(Observer observer, StockEvent event);
 
-
-    public void removeObserver(Observer observer, Object hint) {
-        // apart of observer pattern, but unneeded for assignment
-    }
-
-    public void notifyObservers(Subject subject, Object hint) {
-        this.observers.forEach(observer -> observer.update(subject, hint));
+    public void notifyObservers(Stock stock, StockEvent event) {
+        this.observers.forEach(observer -> observer.update(stock, event));
     }
 }

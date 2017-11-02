@@ -28,8 +28,4 @@ public abstract class StockObserver implements Observer {
     protected boolean addNewStock(Stock stock) {
         return this.stockMap.putIfAbsent(stock.getStockSymbol(), stock) == null;
     }
-
-    protected boolean removeStock(Stock stock) {
-        return this.stockMap.remove(stock.getStockSymbol()) != null;
-    }
 }

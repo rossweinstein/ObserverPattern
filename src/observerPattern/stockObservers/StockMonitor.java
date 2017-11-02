@@ -1,7 +1,7 @@
 package observerPattern.stockObservers;
 
-import observerPattern.eventListener.StockEvents;
-import observerPattern.observer.Subject;
+import observerPattern.eventManager.EventManager;
+import observerPattern.eventManager.StockEvent;
 import stock.Stock;
 
 public class StockMonitor extends StockObserver {
@@ -34,16 +34,19 @@ public class StockMonitor extends StockObserver {
     }
 
     @Override
-    public void update(Subject subject, Object hint) {
+    public void update(Stock stock, StockEvent event) {
 
-        if (!(subject instanceof Stock)) return;
-        Stock stock = (Stock) subject;
+        if (event.equals(StockEvent.Create_Stock)) {
 
-        if (hint.equals(StockEvents.Add_Stock)) {
+            stock.registerObserver(EventManager.getUniqueEventManager(), event);
+
             if(super.addNewStock(stock)) {
                 System.out.println("STOCK MONITOR NOTIFIED: ADDING STOCK LISTENER FOR " + stock.getStockSymbol());
             }
-        } else if (hint.equals(StockEvents.Update_Stock)) {
+        } else if (event.equals(StockEvent.Update_Stock)) {
+
+            stock.registerObserver(EventManager.getUniqueEventManager(), event);
+
             this.updateStockStatus(stock);
             System.out.println("\nSTOCK MONITOR NOTIFIED: UPDATING STOCK STATUS FOR " + stock.getStockSymbol());
         }

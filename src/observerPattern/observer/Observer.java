@@ -1,5 +1,8 @@
 package observerPattern.observer;
 
+import observerPattern.eventManager.StockEvent;
+import stock.Stock;
+
 public interface Observer {
-    void update(Subject subject, Object hint);
+    void update(Stock stock, StockEvent event);
 }
