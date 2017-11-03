@@ -1,22 +1,21 @@
 package observerPattern.stockObservers;
 
-import observerPattern.eventManager.EventManager;
 import observerPattern.eventManager.StockEvent;
 import stock.Stock;
 
 public class StockMonitor extends StockObserver {
 
-    private static StockMonitor stockMonitor;
+    private static StockMonitor uniqueInstance;
 
     protected StockMonitor() {
         super();
     }
 
-    public static StockMonitor getUniqueStockMonitor() {
-        if (stockMonitor == null) {
-            stockMonitor = new StockMonitor();
+    public static StockMonitor getUniqueInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new StockMonitor();
         }
-        return stockMonitor;
+        return uniqueInstance;
     }
 
     public void displayStocks() {
@@ -27,7 +26,7 @@ public class StockMonitor extends StockObserver {
 
         this.getStockList().values().forEach(stock -> {
             System.out.println("\t" + stock.getStockSymbol() +
-                    "\t\t|\t" + stock.getPrice() + "\t|\t" + stock.getDateTime());
+                    "\t\t|\t" + stock.getCurrentPrice() + "\t|\t" + stock.getLastDateTime());
 
         });
         System.out.println();
@@ -38,14 +37,10 @@ public class StockMonitor extends StockObserver {
 
         if (event.equals(StockEvent.Create_Stock)) {
 
-            stock.registerObserver(EventManager.getUniqueEventManager(), event);
-
             if(super.addNewStock(stock)) {
                 System.out.println("STOCK MONITOR NOTIFIED: ADDING STOCK LISTENER FOR " + stock.getStockSymbol());
             }
         } else if (event.equals(StockEvent.Update_Stock)) {
-
-            stock.registerObserver(EventManager.getUniqueEventManager(), event);
 
             this.updateStockStatus(stock);
             System.out.println("\nSTOCK MONITOR NOTIFIED: UPDATING STOCK STATUS FOR " + stock.getStockSymbol());

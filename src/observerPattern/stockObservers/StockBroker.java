@@ -35,8 +35,6 @@ public class StockBroker extends StockObserver {
 
         if (event.equals(StockEvent.Create_Stock)) {
 
-            stock.registerObserver(EventManager.getUniqueEventManager(), event);
-
             if (super.addNewStock(stock)) {
                 System.out.println("STOCK BROKER NOTIFIED: ADDING STOCK LISTENER FOR " + stock.getStockSymbol());
             }
